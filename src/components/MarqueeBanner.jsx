@@ -27,9 +27,8 @@ const MarqueeBanner = () => {
 
       <div
         className="relative overflow-hidden"
+        className="py-10 lg:py-20"
         style={{
-          paddingTop: '5rem',
-          paddingBottom: '5rem',
           background: 'rgba(255,255,255,0.12)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
@@ -38,10 +37,10 @@ const MarqueeBanner = () => {
         <div className="marquee-track flex items-center whitespace-nowrap gap-0">
           {repeated.map((item, i) => (
             <span key={i} className="flex items-center">
-              <span className="text-white font-black text-4xl lg:text-6xl uppercase tracking-widest px-10">
+              <span className="text-white font-black text-2xl lg:text-6xl uppercase tracking-widest px-5 lg:px-10">
                 {item}
               </span>
-              <span className="text-yellow-400 text-3xl select-none">✦</span>
+              <span className="text-yellow-400 text-xl lg:text-3xl select-none">✦</span>
             </span>
           ))}
         </div>

@@ -1,7 +1,7 @@
 import { socialLinks } from './SocialLinks';
 
 const SocialRail = () => (
-  <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-5">
+  <div className="hidden lg:flex fixed right-5 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-5">
     {socialLinks.map(({ href, Icon, label }) => (
       <a
         key={label}
