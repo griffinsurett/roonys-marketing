@@ -1,0 +1,142 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header';
+import SocialRail from '../components/SocialRail';
+import HeroButtons from '../components/HeroButtons';
+import MarqueeBanner from '../components/MarqueeBanner.astro';
+import BenefitsSection from '../content/BenefitsSection';
+// import PortfolioSection from '../content/PortfolioSection';
+import TestimonialsSection from '../content/TestimonialsSection';
+import Footer from '../components/Footer';
+import GeometricShapes from '../layouts/GeometricShapes';
+import { siteData } from '../content/siteData';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{siteData.fullName} — Short-Form Content That Converts</title>
+    <meta name="description" content={siteData.description} />
+  </head>
+  <body class="min-h-screen text-gray-900">
+
+    <!-- Header: needs scroll interactivity -->
+    <Header />
+    <SocialRail client:load />
+
+    <!-- Shared parallax wrapper: hero + marquee + benefits -->
+    <div class="relative">
+      <!-- Fixed gradient background (colors driven by scroll JS below) -->
+      <div
+        id="bg-gradient"
+        class="fixed inset-0 -z-10"
+        style="background-image: linear-gradient(to bottom right, #9333ea, #ec4899, #f97316);"
+      />
+      <!-- Fixed animated shapes -->
+      <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <GeometricShapes client:idle />
+      </div>
+
+      <!-- Hero: static shell, buttons hydrated as React island -->
+      <section
+        id="home"
+        class="flex justify-center relative pt-6 pb-16"
+      >
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10">
+          <div class="space-y-0">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight leading-none">
+              <span class="text-white">Reels. TikToks.</span><br />
+              <span class="text-yellow-400">Shorts. Views.</span><br />
+              <span class="text-white/80 text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-wide leading-none mt-[-0.15em]">
+                Revenue.
+              </span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed mt-3">
+              Whether you're a business generating leads, a creator building an audience, or a brand running paid ads — we produce short-form video that works on every platform and drives the result that actually matters to you.
+            </p>
+
+            <div class="mt-10"><HeroButtons client:load /></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Benefits: hydrate when visible -->
+      <BenefitsSection client:visible />
+    </div>
+
+    <!-- Marquee: after benefits -->
+    <MarqueeBanner />
+
+    <!-- Testimonials -->
+    <TestimonialsSection client:visible />
+
+    <!-- Portfolio: hydrate when visible -->
+    <Footer client:visible />
+    <!-- <PortfolioSection client:visible /> -->
+
+    <script>
+      (() => {
+        // Each palette: [top, mid, bottom] hex colors
+        const palettes = [
+          ['#9333ea', '#ec4899', '#f97316'], // purple → pink → orange  (start)
+          ['#2563eb', '#9333ea', '#ec4899'], // blue → purple → pink
+          ['#0891b2', '#2563eb', '#7c3aed'], // cyan → blue → violet
+          ['#059669', '#0891b2', '#2563eb'], // emerald → cyan → blue
+          ['#ca8a04', '#ea580c', '#9333ea'], // yellow → orange → purple
+          ['#9333ea', '#ec4899', '#f97316'], // back to start
+        ];
+
+        function hexToRgb(hex: string) {
+          const n = parseInt(hex.slice(1), 16);
+          return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+        }
+
+        function lerp(a: number, b: number, t: number) {
+          return Math.round(a + (b - a) * t);
+        }
+
+        function lerpColor(c1: string, c2: string, t: number) {
+          const [r1, g1, b1] = hexToRgb(c1);
+          const [r2, g2, b2] = hexToRgb(c2);
+          return `rgb(${lerp(r1,r2,t)},${lerp(g1,g2,t)},${lerp(b1,b2,t)})`;
+        }
+
+        const el = document.getElementById('bg-gradient') as HTMLElement;
+        let ticking = false;
+
+        function update() {
+          const scrolled = window.scrollY;
+          const maxScroll = document.body.scrollHeight - window.innerHeight;
+          const progress = maxScroll > 0 ? Math.min(scrolled / maxScroll, 1) : 0;
+
+          // Map progress across palette transitions (palettes.length - 1 segments)
+          const segments = palettes.length - 1;
+          const scaled = progress * segments;
+          const idx = Math.min(Math.floor(scaled), segments - 1);
+          const t = scaled - idx;
+
+          const p1 = palettes[idx];
+          const p2 = palettes[idx + 1];
+
+          const top = lerpColor(p1[0], p2[0], t);
+          const mid = lerpColor(p1[1], p2[1], t);
+          const bot = lerpColor(p1[2], p2[2], t);
+
+          el.style.backgroundImage = `linear-gradient(to bottom right, ${top}, ${mid}, ${bot})`;
+          ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+          }
+        }, { passive: true });
+      })();
+    </script>
+  </body>
+</html>

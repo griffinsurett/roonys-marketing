@@ -1,0 +1,41 @@
+---
+const items = [
+  'STOP THE SCROLL',
+  'OWN THE FEED',
+  'REELS THAT CONVERT',
+  'TIKTOKS THAT SELL',
+  'SHORT-FORM CONTENT',
+  'GROW YOUR BRAND',
+  'VIRAL BY DESIGN',
+  'HOOKS THAT HIT',
+];
+
+const repeated = [...items, ...items];
+---
+
+<div
+  class="relative overflow-hidden py-20"
+  style="background: rgba(255,255,255,0.12); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
+>
+  <div class="marquee-track flex items-center whitespace-nowrap gap-0">
+    {repeated.map((item) => (
+      <span class="flex items-center">
+        <span class="text-white font-black text-4xl lg:text-6xl uppercase tracking-widest px-10">
+          {item}
+        </span>
+        <span class="text-yellow-400 text-3xl select-none">✦</span>
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    animation: marquee 14s linear infinite;
+    will-change: transform;
+  }
+</style>
