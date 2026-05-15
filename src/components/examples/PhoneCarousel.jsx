@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function PhoneCarousel({ children, holdMs = 4000, transMs = 600 }) {
+export default function PhoneCarousel({ children, holdMs = 4000, transMs = 600, onSlideChange }) {
   const phones = Array.isArray(children) ? children : [children];
   const [current, setCurrent] = useState(0);
   const [next, setNext]       = useState(null);
@@ -22,6 +22,7 @@ export default function PhoneCarousel({ children, holdMs = 4000, transMs = 600 }
         setCurrent(nextIndex);
         setNext(null);
         setPhase('idle');
+        onSlideChange?.(nextIndex);
       }, transMs);
     }, transMs);
   };

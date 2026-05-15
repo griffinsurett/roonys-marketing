@@ -220,7 +220,7 @@ function PhoneScreen({ account, isActive, delay = 0 }) {
 
 export default function AudienceQualityExample({ isActive = true }) {
   return (
-    <div style={{
+    <div className="ae-dual-phone" style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

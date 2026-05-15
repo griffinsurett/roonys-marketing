@@ -32,123 +32,150 @@ const StatusBar = ({ light }) => (
 const TRIGGER = 'LINK';
 
 const COMMENTS = [
-  { user: 'sarah.m',        avatar: '👩', color: '#7c3aed', delay: 600  },
-  { user: 'mike_builds',    avatar: '🔨', color: '#1d4ed8', delay: 1800 },
-  { user: 'cozy.cottage',   avatar: '🏡', color: '#065f46', delay: 3000 },
-  { user: 'hype.beast99',   avatar: '👟', color: '#92400e', delay: 4200 },
-  { user: 'xo_nightfall',   avatar: '🌙', color: '#1e1b4b', delay: 5400 },
+  { user: 'sarah.m',        avatar: '👩', color: '#7c3aed', delay: 600,  text: 'LINK please!! 🙏' },
+  { user: 'mike_builds',    avatar: '🔨', color: '#1d4ed8', delay: 1800, text: 'LINK 👀' },
+  { user: 'cozy.cottage',   avatar: '🏡', color: '#065f46', delay: 3000, text: 'omg LINK me!!' },
+  { user: 'hype.beast99',   avatar: '👟', color: '#92400e', delay: 4200, text: 'LINK 🔥🔥' },
+  { user: 'xo_nightfall',   avatar: '🌙', color: '#1e1b4b', delay: 5400, text: 'sending LINK to my friends too' },
 ];
 
 // ─── Screen 1: Comment section flooding with trigger word ─────────────────────
 
 function CommentFloodScreen({ isActive }) {
   const [visible, setVisible] = useState([]);
+  const [notif, setNotif] = useState(null); // index of latest notif
   const timers = useRef([]);
 
   useEffect(() => {
     timers.current.forEach(clearTimeout);
     timers.current = [];
-    if (!isActive) { setVisible([]); return; }
-
+    if (!isActive) { setVisible([]); setNotif(null); return; }
     COMMENTS.forEach((c, i) => {
       timers.current.push(setTimeout(() => {
         setVisible(prev => [...prev, i]);
+        setNotif(i);
+        // hide notif after 900ms
+        timers.current.push(setTimeout(() => setNotif(null), 900));
       }, c.delay));
     });
-
     return () => timers.current.forEach(clearTimeout);
   }, [isActive]);
 
   const IG_GRADIENT = 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)';
 
   return (
-    <div style={{ ...PHONE_STYLE }}>
-      {/* Video bg */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(160deg, #0d1117 0%, #1a0533 40%, #7c1fa8 80%, #c2185b 100%)',
-      }} />
+    <div style={{ ...PHONE_STYLE, background: '#111', display: 'flex', flexDirection: 'column' }}>
 
-      <StatusBar />
-
-      {/* IG top bar */}
+      {/* ── DM notification banner ── */}
       <div style={{
-        position: 'absolute', top: 24, left: 0, right: 0,
-        padding: '0 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 10,
+        position: 'absolute', top: 10, left: 10, right: 10, zIndex: 50,
+        background: 'rgba(30,30,30,0.95)', backdropFilter: 'blur(12px)',
+        borderRadius: 14, padding: '8px 12px',
+        display: 'flex', alignItems: 'center', gap: 8,
+        boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+        opacity: notif !== null ? 1 : 0,
+        transform: notif !== null ? 'translateY(0)' : 'translateY(-14px)',
+        transition: 'opacity 0.25s ease, transform 0.25s ease',
+        pointerEvents: 'none',
       }}>
-        <svg viewBox="0 0 24 24" fill="white" style={{ width: 18, height: 18 }}>
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-        </svg>
-        <span style={{ color: '#fff', fontSize: 10, fontWeight: 700 }}>Reels</span>
-        <span style={{ fontSize: 16 }}>📷</span>
-      </div>
-
-      {/* Caption with trigger CTA */}
-      <div style={{
-        position: 'absolute', top: 110, left: 12, right: 50, zIndex: 10,
-      }}>
-        <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: 8, lineHeight: 1.5 }}>
-          <span style={{ fontWeight: 700 }}>@your_brand</span>
-          {'  '}Drop a{' '}
-          <span style={{
-            background: 'rgba(255,255,255,0.15)', borderRadius: 4, padding: '1px 5px',
-            color: '#fbbf24', fontWeight: 900, letterSpacing: 0.5,
-          }}>"{TRIGGER}"</span>
-          {' '}in the comments and we'll send you the link instantly 👇
+        <div style={{
+          width: 28, height: 28, borderRadius: 8, flexShrink: 0,
+          background: IG_GRADIENT,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14,
+        }}>📩</div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 6.5, marginBottom: 1 }}>Instagram · Auto DM ⚡</div>
+          <div style={{ color: '#fff', fontSize: 7.5, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {notif !== null ? `DM sent to ${COMMENTS[notif].user}` : ''}
+          </div>
         </div>
+        <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 6.5, flexShrink: 0 }}>now</div>
       </div>
 
-      {/* Comments flooding in */}
+      {/* ── Top: video thumbnail ── */}
       <div style={{
-        position: 'absolute', bottom: 56, left: 0, right: 0, zIndex: 10,
-        padding: '0 12px',
-        display: 'flex', flexDirection: 'column', gap: 5,
+        height: 180, flexShrink: 0, position: 'relative',
+        background: 'linear-gradient(160deg, #0d1117 0%, #1a0533 50%, #7c1fa8 100%)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
+        {/* play icon */}
+        <div style={{
+          width: 36, height: 36, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <span style={{ fontSize: 14, marginLeft: 2 }}>▶</span>
+        </div>
+        {/* drag handle */}
+        <div style={{
+          position: 'absolute', bottom: 6, left: '50%', transform: 'translateX(-50%)',
+          width: 32, height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.3)',
+        }} />
+      </div>
+
+      {/* ── Post info ── */}
+      <div style={{ padding: '10px 12px 6px', borderBottom: '1px solid #222' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+          <div style={{
+            width: 30, height: 30, borderRadius: '50%', flexShrink: 0,
+            background: IG_GRADIENT, padding: 1.5,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <div style={{ width: '100%', height: '100%', borderRadius: '50%', background: '#1a0533', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>🎯</div>
+          </div>
+          <span style={{ color: '#fff', fontSize: 9, fontWeight: 700 }}>your_brand</span>
+          <div style={{
+            marginLeft: 'auto', border: '1px solid #fff', borderRadius: 6,
+            padding: '2px 8px', color: '#fff', fontSize: 7, fontWeight: 700,
+          }}>Follow</div>
+        </div>
+        <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: 7.5, lineHeight: 1.5 }}>
+          Comment{' '}
+          <span style={{
+            background: 'rgba(251,191,36,0.15)', border: '1px solid #fbbf24',
+            borderRadius: 4, padding: '1px 5px',
+            color: '#fbbf24', fontWeight: 900,
+          }}>"{TRIGGER}"</span>
+          {' '}and I'll DM you the free guide instantly 👇
+        </div>
+        <div style={{ color: '#555', fontSize: 7, marginTop: 4 }}>2 hours ago</div>
+      </div>
+
+      {/* ── Comments list ── */}
+      <div style={{ flex: 1, overflowY: 'hidden', padding: '6px 12px', display: 'flex', flexDirection: 'column', gap: 7 }}>
         {COMMENTS.map((c, i) => (
           <div key={i} style={{
-            display: 'flex', alignItems: 'center', gap: 7,
+            display: 'flex', alignItems: 'center', gap: 8,
             opacity: visible.includes(i) ? 1 : 0,
-            transform: visible.includes(i) ? 'translateY(0)' : 'translateY(8px)',
+            transform: visible.includes(i) ? 'translateY(0)' : 'translateY(10px)',
             transition: 'opacity 0.3s ease, transform 0.3s ease',
           }}>
             <div style={{
-              width: 22, height: 22, borderRadius: '50%', flexShrink: 0,
-              background: c.color, border: '1.5px solid #333',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11,
+              width: 24, height: 24, borderRadius: '50%', flexShrink: 0,
+              background: c.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
             }}>{c.avatar}</div>
-            <div style={{
-              background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(6px)',
-              borderRadius: 12, padding: '4px 9px',
-              display: 'flex', alignItems: 'center', gap: 5,
-            }}>
-              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: 7 }}>{c.user}</span>
-              <span style={{
-                background: 'rgba(251,191,36,0.2)', border: '1px solid #fbbf24',
-                borderRadius: 4, padding: '1px 5px',
-                color: '#fbbf24', fontSize: 7, fontWeight: 900, letterSpacing: 0.5,
-              }}>{TRIGGER}</span>
+            <div style={{ flex: 1 }}>
+              <span style={{ color: '#fff', fontSize: 7.5, fontWeight: 700 }}>{c.user} </span>
+              <span style={{ color: 'rgba(255,255,255,0.75)', fontSize: 7.5 }}>{c.text}</span>
             </div>
-            {/* Instant DM sent indicator */}
-            {visible.includes(i) && (
-              <div style={{
-                background: IG_GRADIENT, borderRadius: 10, padding: '2px 6px',
-                color: '#fff', fontSize: 6, fontWeight: 700, flexShrink: 0,
-                animation: 'dmPop 0.35s ease-out both',
-              }}>DM sent ⚡</div>
-            )}
           </div>
         ))}
       </div>
 
-      {/* Bottom nav */}
+      {/* ── Comment input ── */}
       <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: 44,
-        background: 'rgba(0,0,0,0.7)',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-around', paddingBottom: 6,
+        padding: '6px 12px 8px', borderTop: '1px solid #222',
+        display: 'flex', alignItems: 'center', gap: 8,
       }}>
-        {['🏠', '🔍', '➕', '🎬', '👤'].map((icon, i) => (
-          <span key={i} style={{ fontSize: i === 2 ? 20 : 15, color: i === 3 ? '#fff' : 'rgba(255,255,255,0.4)' }}>{icon}</span>
-        ))}
+        <div style={{
+          width: 24, height: 24, borderRadius: '50%', background: '#333',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, flexShrink: 0,
+        }}>👤</div>
+        <div style={{
+          flex: 1, background: '#1a1a1a', borderRadius: 16,
+          padding: '5px 10px', color: '#555', fontSize: 7,
+        }}>Join the conversation...</div>
+        <span style={{ fontSize: 12 }}>🎁</span>
       </div>
 
       <style>{`
@@ -174,24 +201,28 @@ function AutoDMScreen({ isActive }) {
   const [visible, setVisible] = useState(0);
   const [typing, setTyping] = useState(false);
   const scrollRef = useRef(null);
-  const timerRef = useRef(null);
+  const timers = useRef([]);
 
   useEffect(() => {
-    timerRef.current.forEach?.(clearTimeout);
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
     if (!isActive) { setVisible(0); setTyping(false); return; }
 
     const addNext = (i) => {
       if (i >= DM_MESSAGES.length) return;
       setTyping(true);
-      timerRef.current = setTimeout(() => {
+      const t1 = setTimeout(() => {
         setTyping(false);
         setVisible(i + 1);
-        timerRef.current = setTimeout(() => addNext(i + 1), 1200);
+        const t2 = setTimeout(() => addNext(i + 1), 1200);
+        timers.current.push(t2);
       }, 900);
+      timers.current.push(t1);
     };
 
-    timerRef.current = setTimeout(() => addNext(0), 400);
-    return () => clearTimeout(timerRef.current);
+    const t0 = setTimeout(() => addNext(0), 400);
+    timers.current.push(t0);
+    return () => { timers.current.forEach(clearTimeout); timers.current = []; };
   }, [isActive]);
 
   useEffect(() => {
@@ -346,11 +377,13 @@ function AutoDMScreen({ isActive }) {
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export default function AutoDMExample({ isActive = true }) {
+  const [slide, setSlide] = useState(0);
+
   return (
     <div className="flex items-center justify-center w-full h-full">
-      <PhoneCarousel holdMs={6000} transMs={700}>
-        <CommentFloodScreen isActive={isActive} />
-        <AutoDMScreen isActive={isActive} />
+      <PhoneCarousel holdMs={6000} transMs={700} onSlideChange={setSlide}>
+        <CommentFloodScreen isActive={isActive && slide === 0} />
+        <AutoDMScreen isActive={isActive && slide === 1} />
       </PhoneCarousel>
     </div>
   );

@@ -28,7 +28,7 @@ export default function BenefitCardMotion({ children, className = '' }) {
   return (
     <motion.div
       ref={ref}
-      className={`w-full rounded-[4rem] overflow-hidden ${className}`}
+      className={`w-full lg:h-auto rounded-[4rem] overflow-hidden ${className}`}
       style={{
         background: 'rgba(255,255,255,0.08)',
         backdropFilter: 'blur(12px)',

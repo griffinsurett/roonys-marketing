@@ -213,3 +213,26 @@
 .ae-scale-wrap {
   display: contents;
 }
+
+/* Two-phone layouts: scale to fill container as large as possible */
+.ae-dual-phone {
+  zoom: 0.9;
+}
+
+@media (max-width: 1279px) {
+  .ae-dual-phone {
+    zoom: 0.7;
+  }
+}
+
+@media (max-width: 1023px) {
+  .ae-dual-phone {
+    zoom: 0.9;
+  }
+}
+
+@media (max-width: 639px) {
+  .ae-dual-phone {
+    zoom: 0.65;
+  }
+}
