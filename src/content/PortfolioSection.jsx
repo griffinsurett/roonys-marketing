@@ -30,7 +30,7 @@ const getVisible = (w) => {
 const PortfolioSection = () => {
   const sectionRef = useRef(null);
   const [progress, setProgress] = useState(0);
-  const [visible, setVisible]   = useState(typeof window !== 'undefined' ? getVisible(window.innerWidth) : 5);
+  const [visible, setVisible] = useState(null);
 
   useEffect(() => {
     const onResize = () => setVisible(getVisible(window.innerWidth));
@@ -52,6 +52,8 @@ const PortfolioSection = () => {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  if (!visible) return null;
 
   const scrollCards = Math.max(reels.length - visible, 0);
   // Each hidden card gets 100vh of scroll travel
@@ -76,42 +78,30 @@ const PortfolioSection = () => {
             gap: '1rem',
             padding: '0 1.5rem',
             transform: visible === 1
-              // Mobile: card = (100vw - 3rem) wide + 1rem gap per step
               ? `translateX(calc(-${steps} * (100vw - 3rem) - ${steps}rem))`
-              // Desktop/tablet: vw-based as before
               : `translateX(calc(-${steps * (100 / visible)}vw))`,
             transition: 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
             willChange: 'transform',
           }}
         >
-          {reels.map((reel) => (
-            <div
-              key={reel.id}
-              style={{
-                flexShrink: 0,
-                ...(visible === 1
-                  ? {
-                      // Mobile: one card fills the viewport slot exactly (matches shiftVw math)
-                      width: 'calc(100vw - 3rem)',
-                      height: 'calc((100vw - 3rem) * 16 / 9)',
-                      maxHeight: '80vh',
-                    }
-                  : {
-                      // Tablet/desktop: width-driven, height follows aspect ratio
-                      width: `calc(${100 / visible}vw - ${(visible - 1) / visible}rem - ${2 * 1.5 / visible}rem)`,
-                    }),
-              }}
-            >
-              <div style={{ width: '100%', height: '100%', aspectRatio: visible === 1 ? undefined : '9/16' }}>
-                <VideoCard
-                  videoUrl={reel.videoUrl}
-                  thumbnail={reel.thumbnail}
-                  title={reel.title}
-                  color="from-purple-600 to-pink-500"
-                />
+          {reels.map((reel) => {
+            const cardW = visible === 1
+              ? 'calc(100vw - 3rem)'
+              : `calc(${100 / visible}vw - ${(visible - 1) / visible}rem - ${2 * 1.5 / visible}rem)`;
+            const cardH = visible === 1 ? '80vh' : undefined;
+            return (
+              <div key={reel.id} style={{ flexShrink: 0, width: cardW, height: cardH }}>
+                <div style={{ width: '100%', height: '100%', aspectRatio: visible === 1 ? undefined : '9/16' }}>
+                  <VideoCard
+                    videoUrl={reel.videoUrl}
+                    thumbnail={reel.thumbnail}
+                    title={reel.title}
+                    color="from-purple-600 to-pink-500"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>
