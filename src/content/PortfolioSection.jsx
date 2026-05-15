@@ -53,9 +53,8 @@ const PortfolioSection = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  if (!visible) return null;
-
-  const scrollCards = Math.max(reels.length - visible, 0);
+  const v = visible ?? 5;
+  const scrollCards = Math.max(reels.length - v, 0);
   // Each hidden card gets 100vh of scroll travel
   const sectionHeight = scrollCards > 0 ? `${scrollCards * 100 + 100}vh` : 'auto';
   const steps = progress * scrollCards;
@@ -71,27 +70,28 @@ const PortfolioSection = () => {
         className="sticky top-0 flex flex-col justify-center"
         style={{ height: '100vh', overflow: 'hidden' }}
       >
-        {/* Rail — full strip of all cards side by side */}
+        {/* Rail — hidden until breakpoint is known to avoid flash */}
         <div
           style={{
             display: 'flex',
             gap: '1rem',
             padding: '0 1.5rem',
-            transform: visible === 1
+            visibility: visible === null ? 'hidden' : 'visible',
+            transform: v === 1
               ? `translateX(calc(-${steps} * (100vw - 3rem) - ${steps}rem))`
-              : `translateX(calc(-${steps * (100 / visible)}vw))`,
+              : `translateX(calc(-${steps * (100 / v)}vw))`,
             transition: 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
             willChange: 'transform',
           }}
         >
           {reels.map((reel) => {
-            const cardW = visible === 1
+            const cardW = v === 1
               ? 'calc(100vw - 3rem)'
-              : `calc(${100 / visible}vw - ${(visible - 1) / visible}rem - ${2 * 1.5 / visible}rem)`;
-            const cardH = visible === 1 ? '80vh' : undefined;
+              : `calc(${100 / v}vw - ${(v - 1) / v}rem - ${2 * 1.5 / v}rem)`;
+            const cardH = v === 1 ? '80vh' : undefined;
             return (
               <div key={reel.id} style={{ flexShrink: 0, width: cardW, height: cardH }}>
-                <div style={{ width: '100%', height: '100%', aspectRatio: visible === 1 ? undefined : '9/16' }}>
+                <div style={{ width: '100%', height: '100%', aspectRatio: v === 1 ? undefined : '9/16' }}>
                   <VideoCard
                     videoUrl={reel.videoUrl}
                     thumbnail={reel.thumbnail}
