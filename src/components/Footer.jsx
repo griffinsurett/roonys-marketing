@@ -29,8 +29,8 @@ const Footer = () => (
 
     {/* Copyright bar */}
     <div className="section-container pb-4 relative z-10">
-      <p className="text-white/30 text-xs">
-        © {new Date().getFullYear()} Chik Chak Content Marketing. All rights reserved.
+      <p className="text-white/30 text-sm uppercase font-black tracking-widest">
+        © CHIK CHAK
       </p>
     </div>
 
@@ -43,7 +43,7 @@ const Footer = () => (
       <p
         className="text-center font-black uppercase tracking-tight whitespace-nowrap"
         style={{
-          fontSize: 'clamp(5rem, 18vw, 22rem)',
+          fontSize: 'clamp(3rem, 15vw, 22rem)',
           color: 'rgba(255,255,255,0.12)',
           lineHeight: 1,
         }}
