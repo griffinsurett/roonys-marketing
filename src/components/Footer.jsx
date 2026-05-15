@@ -27,6 +27,13 @@ const Footer = () => (
 
     </div>
 
+    {/* Copyright bar */}
+    <div className="section-container pb-4 relative z-10">
+      <p className="text-white/30 text-xs">
+        © {new Date().getFullYear()} Chik Chak Content Marketing. All rights reserved.
+      </p>
+    </div>
+
     {/* Giant wordmark bleeding off bottom */}
     <div
       className="w-full overflow-hidden leading-none select-none pointer-events-none"
@@ -41,7 +48,7 @@ const Footer = () => (
           lineHeight: 1,
         }}
       >
-        ROONY'S
+        CHIK CHAK
       </p>
     </div>
 

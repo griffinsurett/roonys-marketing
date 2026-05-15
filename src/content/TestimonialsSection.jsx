@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { ArrowRight, Play } from 'lucide-react';
-import RoonyLogo from '../assets/roony-logo.png';
+import ChikChakLogo from '../assets/chik-chak-content-marketing.png';
 
 const testimonials = [
   {
@@ -138,7 +138,7 @@ const TestimonialCard = ({ t, side }) => {
 };
 
 const TestimonialsSection = () => {
-  const logoSrc = typeof RoonyLogo === 'object' && RoonyLogo?.src ? RoonyLogo.src : RoonyLogo;
+  const logoSrc = typeof ChikChakLogo === 'object' && ChikChakLogo?.src ? ChikChakLogo.src : ChikChakLogo;
   const sectionRef = useRef(null);
   const centerRef = useRef(null);
 
@@ -180,7 +180,7 @@ const TestimonialsSection = () => {
           <div className="flex flex-col items-center gap-6 text-center">
             <GoogleBadge />
             <Heading />
-            <img src={logoSrc} alt="Roony's Marketing" className="w-48 h-48 object-contain drop-shadow-2xl" />
+            <img src={logoSrc} alt="Chik Chak Content Marketing" className="w-48 h-48 object-contain drop-shadow-2xl" />
           </div>
           {testimonials.map((t, i) => (
             <TestimonialCard key={i} t={t} side={i % 2 === 0 ? 'left' : 'right'} />
@@ -206,7 +206,7 @@ const TestimonialsSection = () => {
             <Heading />
             <img
               src={logoSrc}
-              alt="Roony's Marketing"
+              alt="Chik Chak Content Marketing"
               className="w-48 h-48 lg:w-64 lg:h-64 object-contain drop-shadow-2xl"
             />
           </div>

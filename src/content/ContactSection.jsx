@@ -21,7 +21,7 @@ const contactInfo = [
     icon: <Mail className="w-8 h-8 text-yellow-400 mx-auto" />,
     title: "Email Us",
     linkPrefix: "mailto:",
-    info: "hello@roonymarketing.com",
+    info: "hello@chikchak.com",
     color: "orange-600",
   },
   {

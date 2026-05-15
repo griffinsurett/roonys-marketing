@@ -145,7 +145,7 @@ function BehindTheScenesScreen({ isActive }) {
           display: 'flex', alignItems: 'center', gap: 5,
         }}>
           <span style={{ fontSize: 8 }}>⚡</span>
-          <span style={{ color: '#444', fontSize: 7 }}>Powered by Roony's · Internal only</span>
+          <span style={{ color: '#444', fontSize: 7 }}>Powered by Chik Chak · Internal only</span>
         </div>
       </div>
 

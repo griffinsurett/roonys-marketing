@@ -1,7 +1,7 @@
 // src/data/siteConfig.js
 export const siteData = {
-  companyName: "ROONY'S",
-  fullName: "Roony's Marketing Services",
+  companyName: "CHIK CHAK",
+  fullName: "Chik Chak Content Marketing",
   ownerName: 'Tarun "Roony" Kumar',
   location: "New Jersey, USA",
   tagline:

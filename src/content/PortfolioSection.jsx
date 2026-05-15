@@ -24,13 +24,13 @@ const reels = [
 const getVisible = (w) => {
   if (w >= 1024) return 5;
   if (w >= 640)  return 3;
-  return 2;
+  return 1;
 };
 
 const PortfolioSection = () => {
   const sectionRef = useRef(null);
   const [progress, setProgress] = useState(0);
-  const [visible, setVisible]   = useState(5);
+  const [visible, setVisible]   = useState(typeof window !== 'undefined' ? getVisible(window.innerWidth) : 5);
 
   useEffect(() => {
     const onResize = () => setVisible(getVisible(window.innerWidth));
