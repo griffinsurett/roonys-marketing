@@ -1,0 +1,155 @@
+---
+import { splitTextIntoAnimatedWords } from '../utils/text';
+
+const text = "We don't do everything. We do short-form. And we do it better than anyone else.";
+const words = splitTextIntoAnimatedWords(text);
+---
+
+<aside
+  id="about"
+  class="trust-statement"
+  data-trust-sticky="true"
+  style="--trust-section-height: 250svh;"
+  aria-label="Trust statement"
+>
+  <div class="trust-pin" data-trust-sticky-inner>
+    <div class="section-container w-full">
+      <h2
+        class="font-black uppercase text-white leading-[1.08] text-balance"
+        style="font-size: clamp(2.8rem, 5.5vw, 6rem);"
+        aria-label={text}
+      >
+        {words.map((word) => (
+          <>
+            <span class="trust-word" aria-hidden="true" data-trust-word-progress>
+              <span class="trust-layer trust-layer--base">{word.word}</span>
+              <span class="trust-layer trust-layer--overlay">{word.word}</span>
+            </span>
+            {!word.isLast && <span class="trust-space" aria-hidden="true"> </span>}
+          </>
+        ))}
+      </h2>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .trust-statement {
+    position: relative;
+    min-height: var(--trust-section-height);
+  }
+
+  .trust-pin {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .trust-word {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    --word-progress: 0;
+  }
+
+  .trust-layer {
+    display: block;
+  }
+
+  .trust-layer--base {
+    color: rgba(255, 255, 255, 0.15);
+  }
+
+  .trust-layer--overlay {
+    position: absolute;
+    inset: 0;
+    color: white;
+    pointer-events: none;
+    opacity: var(--word-progress);
+    will-change: opacity;
+  }
+
+  .trust-space {
+    white-space: pre;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trust-statement {
+      min-height: auto;
+    }
+    .trust-pin {
+      position: static;
+      transform: none;
+    }
+    .trust-layer--overlay {
+      opacity: 1 !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const key = "__trustController";
+    if (window[key]) { window[key].register(); return; }
+
+    const ctrl = {
+      ticking: false,
+      started: false,
+      register() { this.update(); },
+      start() {
+        if (this.started) { this.schedule(); return; }
+        this.started = true;
+        window.addEventListener("scroll", () => ctrl.schedule(), { passive: true });
+        window.addEventListener("resize", () => ctrl.schedule());
+        this.schedule();
+      },
+      schedule() {
+        if (this.ticking) return;
+        this.ticking = true;
+        requestAnimationFrame(() => { this.ticking = false; this.update(); });
+      },
+      update() {
+        const sections = document.querySelectorAll("[data-trust-sticky='true']");
+        if (!sections.length) return;
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        sections.forEach((section) => {
+          if (!(section instanceof HTMLElement)) return;
+          if (reduced) return;
+
+          const inner = section.querySelector("[data-trust-sticky-inner]");
+          if (!(inner instanceof HTMLElement)) return;
+
+          const sectionRect = section.getBoundingClientRect();
+          const scrollSpan = Math.max(section.offsetHeight - inner.offsetHeight, 1);
+          const progress = Math.max(0, Math.min(-sectionRect.top / scrollSpan, 1));
+
+          const wordNodes = section.querySelectorAll("[data-trust-word-progress]");
+          const totalWords = wordNodes.length || 1;
+
+          wordNodes.forEach((node, i) => {
+            if (!(node instanceof HTMLElement)) return;
+            const wp = Math.max(0, Math.min(progress * totalWords - i, 1));
+            node.style.setProperty("--word-progress", wp.toFixed(4));
+          });
+        });
+      },
+    };
+
+    window[key] = ctrl;
+
+    const sections = document.querySelectorAll("[data-trust-sticky='true']");
+    if (!sections.length) return;
+
+    if (!("IntersectionObserver" in window)) { ctrl.start(); return; }
+
+    const obs = new IntersectionObserver((entries, observer) => {
+      if (entries.some((e) => e.isIntersecting)) { ctrl.start(); observer.disconnect(); }
+    }, { rootMargin: "300px 0px", threshold: 0 });
+
+    sections.forEach((s) => obs.observe(s));
+  })();
+</script>

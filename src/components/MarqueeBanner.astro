@@ -13,19 +13,21 @@ const items = [
 const repeated = [...items, ...items];
 ---
 
-<div
-  class="relative overflow-hidden py-20 hidden md:block"
-  style="background: rgba(255,255,255,0.12); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
->
-  <div class="marquee-track flex items-center whitespace-nowrap gap-0">
-    {repeated.map((item) => (
-      <span class="flex items-center">
-        <span class="text-white font-black text-4xl lg:text-6xl uppercase tracking-widest px-10">
-          {item}
+<div class="hidden md:flex items-center justify-center" style="height: 100vh;">
+  <div
+    class="relative overflow-hidden w-full"
+    style="background: rgba(255,255,255,0.12); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
+  >
+    <div class="marquee-track flex items-center whitespace-nowrap gap-0 py-20">
+      {repeated.map((item) => (
+        <span class="flex items-center">
+          <span class="text-white font-black text-4xl lg:text-6xl uppercase tracking-widest px-10">
+            {item}
+          </span>
+          <span class="text-yellow-400 text-3xl select-none">✦</span>
         </span>
-        <span class="text-yellow-400 text-3xl select-none">✦</span>
-      </span>
-    ))}
+      ))}
+    </div>
   </div>
 </div>
 

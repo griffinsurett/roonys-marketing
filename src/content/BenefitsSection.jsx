@@ -3,28 +3,32 @@ import { motion, useAnimation } from 'framer-motion';
 
 const benefits = [
   {
-    heading: 'SHORT-FORM CONTENT\nTHAT STOPS THE SCROLL.',
-    body: 'We live and breathe Reels, TikToks, and Shorts. Every frame is engineered to interrupt the swipe, hook the viewer in 2 seconds flat, and keep them watching until the very end.',
-  },
-  {
     heading: 'PROVEN VIRALITY.\nNOT LUCK.',
-    body: 'Our clients average 250% more reach within 90 days. We reverse-engineer what the algorithm rewards — retention, saves, shares — and build every video around those signals.',
+    body: 'Viral content isn\'t a happy accident — it\'s engineered. We study what the algorithm rewards: watch-through rate, saves, shares, replays. Then we build every video around those exact signals so your content gets pushed, not buried.',
   },
   {
-    heading: 'CONCEPT TO POSTED\nIN 48 HOURS.',
-    body: 'Speed is your unfair advantage. From the first hook idea to a live post on every platform, we move fast without cutting corners — because consistency is what feeds the algorithm.',
+    heading: 'VIEWERS INTO\nLOYAL FOLLOWERS.',
+    body: 'A view means nothing if they don\'t come back. We craft content with identity, personality, and a consistent voice that makes people hit follow because they don\'t want to miss what\'s next.',
   },
   {
-    heading: 'SCRIPTED FOR YOUR\nIDEAL CUSTOMER.',
-    body: 'Every hook, cut, caption, and call-to-action is written around your buyer\'s exact scroll behavior. We don\'t make content that looks good — we make content that converts.',
+    heading: 'FOLLOWERS INTO\nPAYING CUSTOMERS.',
+    body: 'For businesses, attention is only the first step. Every script, CTA, and edit is built to move warm viewers down the funnel — from watching to clicking to buying.',
   },
   {
-    heading: 'ORGANIC GROWTH.\nPAID REACH. BOTH.',
-    body: 'Great content earns views organically. Smart ads pour fuel on the fire. We run the full short-form playbook — TikTok, Instagram, and YouTube Shorts — so you dominate every feed.',
+    heading: 'CREATORS BUILT\nTO MONETIZE.',
+    body: 'Brand deals, platform payouts, digital products — they all require one thing: a loyal audience that watches till the end. We build the content strategy that gets you there.',
   },
   {
-    heading: 'DATA AFTER EVERY\nSINGLE POST.',
-    body: 'We track retention curves, watch-through rates, saves, and shares after every upload — then use that data to make the next video outperform the last. Every post gets smarter.',
+    heading: 'AGENCIES THAT\nNEED TO DELIVER.',
+    body: 'White-label, NDA-friendly, and built to slot into your workflow invisibly. Your client gets scroll-stopping short-form content. You get the credit. We handle everything behind the scenes.',
+  },
+  {
+    heading: 'BRANDS THAT WANT\nTO OWN THEIR NICHE.',
+    body: 'Consistent short-form presence compounds. The brands that post well and often become the ones people think of first. We build the pipeline that keeps you visible, relevant, and impossible to ignore.',
+  },
+  {
+    heading: 'ONE SHOOT.\nEVERY PLATFORM.',
+    body: 'TikTok, Instagram Reels, YouTube Shorts — three algorithms, three audiences, three sets of rules. We repurpose, resize, and re-caption every piece of content so you dominate all three without doing triple the work.',
   },
 ];
 
@@ -42,7 +46,6 @@ const BenefitCard = ({ benefit, index }) => {
         if (entry.isIntersecting) {
           controls.start({ opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } });
         } else {
-          // Above viewport (scrolled past) → exit upward; below → exit downward
           const exitY = entry.boundingClientRect.top < 0 ? -60 : 60;
           controls.start({ opacity: 0, y: exitY, transition: { duration: 0.5, ease: 'easeIn' } });
         }

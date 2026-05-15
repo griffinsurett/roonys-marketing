@@ -226,20 +226,13 @@ const TestimonialsSection = () => {
             Ready to stop being<br />
             <span className="text-yellow-400">invisible online?</span>
           </h2>
-          <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
+          <div className="flex justify-center">
             <a
               href="#contact"
               className="px-12 py-5 rounded-full font-black text-xl uppercase flex items-center gap-3 shadow-2xl transition-all duration-300 hover:scale-105 bg-yellow-400 hover:bg-yellow-300 text-gray-900"
             >
               <span>Get Started</span>
               <ArrowRight className="w-6 h-6" />
-            </a>
-            <a
-              href="#portfolio"
-              className="px-12 py-5 rounded-full font-black text-xl uppercase flex items-center gap-3 shadow-2xl transition-all duration-300 hover:scale-105 border-4 border-white text-white hover:bg-white hover:text-gray-900"
-            >
-              <span>Watch Our Reels</span>
-              <Play className="w-6 h-6" />
             </a>
           </div>
         </div>
