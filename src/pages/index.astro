@@ -6,7 +6,7 @@ import HeroButtons from '../components/HeroButtons.astro';
 import MarqueeBanner from '../components/MarqueeBanner.astro';
 import AboutSection from '../content/AboutSection.astro';
 import PortfolioSection from '../content/PortfolioSection';
-import BenefitsSection from '../content/BenefitsSection';
+import BenefitsSection from '../content/BenefitsSection.astro';
 import TestimonialsSection from '../content/TestimonialsSection';
 import Footer from '../components/Footer';
 import GeometricShapes from '../layouts/GeometricShapes';
@@ -69,7 +69,7 @@ import { siteData } from '../content/siteData';
     <MarqueeBanner />
 
     <!-- Benefits -->
-    <BenefitsSection client:visible />
+    <BenefitsSection />
 
     <!-- Testimonials -->
     <TestimonialsSection client:visible />
