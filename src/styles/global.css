@@ -206,3 +206,26 @@
   0%, 100% { transform: translateX(0); }
   50%       { transform: translateX(20px); }
 }
+
+/*--------------------------------------
+  Animated Example — responsive scale
+--------------------------------------*/
+/* Desktop (≥1024px): no scaling */
+.ae-scale-wrap {
+  display: contents;
+}
+
+/* Tablet (640px–1023px): scale to 60% */
+@media (max-width: 1023px) {
+  .ae-scale-wrap {
+    display: block;
+    zoom: 0.6;
+  }
+}
+
+/* Mobile (≤639px): scale to 45% */
+@media (max-width: 639px) {
+  .ae-scale-wrap {
+    zoom: 0.45;
+  }
+}

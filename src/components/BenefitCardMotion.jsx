@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 
-export default function BenefitCardMotion({ children }) {
+export default function BenefitCardMotion({ children, className = '' }) {
   const ref = useRef(null);
   const controls = useAnimation();
 
@@ -28,7 +28,7 @@ export default function BenefitCardMotion({ children }) {
   return (
     <motion.div
       ref={ref}
-      className="w-full rounded-[4rem] overflow-hidden"
+      className={`w-full rounded-[4rem] overflow-hidden ${className}`}
       style={{
         background: 'rgba(255,255,255,0.08)',
         backdropFilter: 'blur(12px)',

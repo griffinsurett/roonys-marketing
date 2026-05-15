@@ -44,26 +44,17 @@ const benefits = [
   },
 ];
 
-const islands = [
-  TikTokProfileIsland,
-  TikTokFollowersIsland,
-  PayingCustomersIsland,
-  CreatorMonetizeIsland,
-  AgencyWhiteLabelIsland,
-  AudienceQualityIsland,
-  OnePlatformIsland,
-  AutoDMIsland,
-];
+
 ---
 
 <section id="benefits" class="relative py-24 lg:py-32">
   <div class="section-container relative z-10 flex flex-col gap-60">
 
     <!-- Card 0: Proven Virality -->
-    <BenefitCardMotion client:visible>
-      <div class="flex flex-col lg:flex-row items-stretch">
-        <div class="w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
-          <div class="w-full aspect-4/3 rounded-[3rem] flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
+    <BenefitCardMotion client:visible className="min-h-[85vh] lg:min-h-0">
+      <div class="flex flex-col lg:flex-row items-stretch h-full">
+        <div class="h-2/3 lg:h-auto w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
+          <div class="w-full h-full rounded-[3rem] overflow-hidden flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
             <TikTokProfileIsland client:visible />
           </div>
         </div>
@@ -75,10 +66,10 @@ const islands = [
     </BenefitCardMotion>
 
     <!-- Card 1: Viewers into Followers -->
-    <BenefitCardMotion client:visible>
-      <div class="flex flex-col lg:flex-row-reverse items-stretch">
-        <div class="w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
-          <div class="w-full aspect-4/3 rounded-[3rem] flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
+    <BenefitCardMotion client:visible className="min-h-[85vh] lg:min-h-0">
+      <div class="flex flex-col lg:flex-row-reverse items-stretch h-full">
+        <div class="h-2/3 lg:h-auto w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
+          <div class="w-full h-full rounded-[3rem] overflow-hidden flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
             <TikTokFollowersIsland client:visible />
           </div>
         </div>
@@ -90,10 +81,10 @@ const islands = [
     </BenefitCardMotion>
 
     <!-- Card 2: Followers into Paying Customers -->
-    <BenefitCardMotion client:visible>
-      <div class="flex flex-col lg:flex-row items-stretch">
-        <div class="w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
-          <div class="w-full aspect-4/3 rounded-[3rem] flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
+    <BenefitCardMotion client:visible className="min-h-[85vh] lg:min-h-0">
+      <div class="flex flex-col lg:flex-row items-stretch h-full">
+        <div class="h-2/3 lg:h-auto w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
+          <div class="w-full h-full rounded-[3rem] overflow-hidden flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
             <PayingCustomersIsland client:visible />
           </div>
         </div>
@@ -105,10 +96,10 @@ const islands = [
     </BenefitCardMotion>
 
     <!-- Card 3: Creators Built to Monetize -->
-    <BenefitCardMotion client:visible>
-      <div class="flex flex-col lg:flex-row-reverse items-stretch">
-        <div class="w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
-          <div class="w-full aspect-4/3 rounded-[3rem] flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
+    <BenefitCardMotion client:visible className="min-h-[85vh] lg:min-h-0">
+      <div class="flex flex-col lg:flex-row-reverse items-stretch h-full">
+        <div class="h-2/3 lg:h-auto w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
+          <div class="w-full h-full rounded-[3rem] overflow-hidden flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
             <CreatorMonetizeIsland client:visible />
           </div>
         </div>
@@ -120,10 +111,10 @@ const islands = [
     </BenefitCardMotion>
 
     <!-- Card 4: Agencies -->
-    <BenefitCardMotion client:visible>
-      <div class="flex flex-col lg:flex-row items-stretch">
-        <div class="w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
-          <div class="w-full aspect-4/3 rounded-[3rem] flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
+    <BenefitCardMotion client:visible className="min-h-[85vh] lg:min-h-0">
+      <div class="flex flex-col lg:flex-row items-stretch h-full">
+        <div class="h-2/3 lg:h-auto w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
+          <div class="w-full h-full rounded-[3rem] overflow-hidden flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
             <AgencyWhiteLabelIsland client:visible />
           </div>
         </div>
@@ -135,10 +126,10 @@ const islands = [
     </BenefitCardMotion>
 
     <!-- Card 5: The Right Audience -->
-    <BenefitCardMotion client:visible>
-      <div class="flex flex-col lg:flex-row-reverse items-stretch">
-        <div class="w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
-          <div class="w-full aspect-4/3 rounded-[3rem] flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
+    <BenefitCardMotion client:visible className="min-h-[85vh] lg:min-h-0">
+      <div class="flex flex-col lg:flex-row-reverse items-stretch h-full">
+        <div class="h-2/3 lg:h-auto w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
+          <div class="w-full h-full rounded-[3rem] overflow-hidden flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
             <AudienceQualityIsland client:visible />
           </div>
         </div>
@@ -150,10 +141,10 @@ const islands = [
     </BenefitCardMotion>
 
     <!-- Card 6: One Shoot Every Platform -->
-    <BenefitCardMotion client:visible>
-      <div class="flex flex-col lg:flex-row items-stretch">
-        <div class="w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
-          <div class="w-full aspect-4/3 rounded-[3rem] flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
+    <BenefitCardMotion client:visible className="min-h-[85vh] lg:min-h-0">
+      <div class="flex flex-col lg:flex-row items-stretch h-full">
+        <div class="h-2/3 lg:h-auto w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
+          <div class="w-full h-full rounded-[3rem] overflow-hidden flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
             <OnePlatformIsland client:visible />
           </div>
         </div>
@@ -165,10 +156,10 @@ const islands = [
     </BenefitCardMotion>
 
     <!-- Card 7: Content That Works While You Sleep -->
-    <BenefitCardMotion client:visible>
-      <div class="flex flex-col lg:flex-row-reverse items-stretch">
-        <div class="w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
-          <div class="w-full aspect-4/3 rounded-[3rem] flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
+    <BenefitCardMotion client:visible className="min-h-[85vh] lg:min-h-0">
+      <div class="flex flex-col lg:flex-row-reverse items-stretch h-full">
+        <div class="h-2/3 lg:h-auto w-full lg:w-2/3 flex items-center justify-center p-6 lg:p-8">
+          <div class="w-full h-full rounded-[3rem] overflow-hidden flex items-center justify-center" style="background: rgba(0,0,0,0.25)">
             <AutoDMIsland client:visible />
           </div>
         </div>

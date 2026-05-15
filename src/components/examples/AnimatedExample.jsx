@@ -30,7 +30,9 @@ export default function AnimatedExample({ children, label = 'Animated demonstrat
       aria-label={label}
       className="w-full h-full flex items-center justify-center"
     >
-      {typeof children === 'function' ? children(active) : children}
+      <div className="ae-scale-wrap">
+        {typeof children === 'function' ? children(active) : children}
+      </div>
     </div>
   );
 }
